@@ -18,8 +18,7 @@ import javax.microedition.lcdui.game.*;
  * @author bense
  */
 public class Map {
-    private Image bg = ImageAction.getImage("/res/background1.png");
-    private Image gameBg = ImageAction.getImage("/res/backgroud2.png");
+    private Image gameBg;
     private Image btnBack = ImageAction.getImage("/res/btn_back.png");
     private Image btnReset = ImageAction.getImage("/res/btn_reset.png");
 
@@ -55,6 +54,7 @@ public class Map {
     public Map(GameMain game, Graphics g, int index) {
         this.game = game;
         this.g = g;
+        gameBg = ImageAction.getImage("/res/backgroud2.png");
         initXY(game);
         initMap(index);
     }
@@ -64,8 +64,8 @@ public class Map {
         height = game.getHeight();
         int center_x = width / 2;
         int center_y = height / 2;
-        bg_x = center_x - bg.getWidth() / 2;
-        bg_y = center_y - bg.getHeight() / 2;
+        bg_x = center_x - Util.bg.getWidth() / 2;
+        bg_y = center_y - Util.bg.getHeight() / 2;
         gameBg_x = center_x - gameBg.getWidth() / 2;
         gameBg_y = center_y - gameBg.getHeight() / 2;
 
@@ -90,7 +90,7 @@ public class Map {
 
     private void setXY() {
         x = (game.getWidth() - 12 * length) / 2;
-        y = (game.getHeight() - 12 * length + 10) / 2 -5;
+        y = (game.getHeight() - 12 * length + 10) / 2 - 5;
     }
 
     private void setBox() {
@@ -145,7 +145,7 @@ public class Map {
     }
 
     private void DrawBg() {
-        g.drawImage(bg, bg_x, bg_y, 0);
+        g.drawImage(Util.bg, bg_x, bg_y, 0);
         g.drawImage(gameBg, gameBg_x, gameBg_y, 0);
         g.drawImage(btnBack, btnBack_x, btnBack_y, 0);
         g.drawImage(btnReset, btnReset_x, btnReset_y, 0);

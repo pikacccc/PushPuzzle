@@ -6,7 +6,6 @@ import javax.microedition.lcdui.game.GameCanvas;
 
 public class ContinueCanvas extends GameCanvas implements Runnable {
     private Graphics g;
-    private Image Bg;
     private Image Title;
 
     private int bg_x;
@@ -23,7 +22,6 @@ public class ContinueCanvas extends GameCanvas implements Runnable {
         this.setFullScreenMode(true);
         this.midlet=midlet;
         g = getGraphics();
-        Bg = Util.LoadImg("/res/background1.png");
         Title = Util.LoadImg("/res/win1.png");
         InitXY();
     }
@@ -35,14 +33,14 @@ public class ContinueCanvas extends GameCanvas implements Runnable {
         int center_x = width / 2;
         int center_y = height / 2;
 
-        bg_x = center_x - Bg.getWidth() / 2;
-        bg_y = center_y - Bg.getHeight() / 2;
+        bg_x = center_x - Util.bg.getWidth() / 2;
+        bg_y = center_y - Util.bg.getHeight() / 2;
         title_x = center_x - Title.getWidth() / 2;
         title_y = center_y - Title.getHeight() / 2 - 100;
     }
 
     private void Draw() {
-        g.drawImage(Bg, bg_x, bg_y, 0);
+        g.drawImage(Util.bg, bg_x, bg_y, 0);
         g.drawImage(Title, title_x, title_y, Graphics.TOP | Graphics.LEFT);
         flushGraphics();
     }
