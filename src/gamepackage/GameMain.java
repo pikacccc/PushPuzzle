@@ -28,6 +28,7 @@ public class GameMain extends GameCanvas implements Runnable, CommandListener {
 
     public GameMain(GameMidlet midlet) {
         super(false);
+        setFullScreenMode(true);
         this.midlet = midlet;
         g = getGraphics();
 
