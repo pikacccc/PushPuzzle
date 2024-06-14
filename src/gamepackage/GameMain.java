@@ -15,7 +15,7 @@ import javax.microedition.lcdui.game.*;
 /**
  * @author bense
  */
-public class GameMain extends GameCanvas implements Runnable, CommandListener {
+public class GameMain extends GameCanvas implements Runnable {
 
     private boolean runningFlag = true;
     private int index;
@@ -23,33 +23,15 @@ public class GameMain extends GameCanvas implements Runnable, CommandListener {
     private Graphics g;
     private GameMidlet midlet;
 
-    Command cmdBack = new Command("", Command.EXIT, 1);
-    Command cmdReset = new Command("", Command.OK, 1);
-
     public GameMain(GameMidlet midlet) {
         super(false);
         setFullScreenMode(true);
         this.midlet = midlet;
         g = getGraphics();
-
-        addCommand(cmdBack);
-        addCommand(cmdReset);
-        setCommandListener(this);
     }
 
     public void Stop() {
         runningFlag = false;
-    }
-
-    public void commandAction(Command cmd, Displayable displayable) {
-        if (!map.isFinish()) {
-            if (cmd == cmdBack) {
-                midlet.OpenMenu();
-                midlet.CloseGame();
-            } else if (cmd == cmdReset) {
-                Reset();
-            }
-        }
     }
 
     public void start(int index) {
@@ -65,6 +47,11 @@ public class GameMain extends GameCanvas implements Runnable, CommandListener {
     }
 
     public void keyPressed(int keyCode) {
+        if (keyCode == -6 || keyCode == 8 || keyCode == 96 || keyCode == -8 || keyCode == -7) {
+            midlet.OpenMenu();
+            midlet.CloseGame();
+            return;
+        }
         int key = getGameAction(keyCode);
         switch (key) {
             case GameCanvas.DOWN:
@@ -78,6 +65,9 @@ public class GameMain extends GameCanvas implements Runnable, CommandListener {
                 break;
             case GameCanvas.RIGHT:
                 map.getKey(4);
+                break;
+            case GameCanvas.FIRE:
+                Reset();
                 break;
             default:
                 break;

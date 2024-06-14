@@ -19,8 +19,6 @@ import javax.microedition.lcdui.game.*;
  */
 public class Map {
     private Image gameBg;
-    private Image btnBack = ImageAction.getImage("/res/btn_back.png");
-    private Image btnReset = ImageAction.getImage("/res/btn_reset.png");
 
     private Sprite sp1 = new Sprite(ImageAction.getImage("/res/1.png"));
     private Sprite sp2 = new Sprite(ImageAction.getImage("/res/2.png"));
@@ -43,10 +41,6 @@ public class Map {
     private int bg_y;
     private int gameBg_x;
     private int gameBg_y;
-    private int btnBack_x;
-    private int btnBack_y;
-    private int btnReset_x;
-    private int btnReset_y;
 
     /**
      * Creates a new instance of Map
@@ -68,12 +62,6 @@ public class Map {
         bg_y = center_y - Util.bg.getHeight() / 2;
         gameBg_x = center_x - gameBg.getWidth() / 2;
         gameBg_y = center_y - gameBg.getHeight() / 2;
-
-        btnBack_x = 50;
-        btnBack_y = height - 50;
-
-        btnReset_x = width - 130;
-        btnReset_y = height - 50;
     }
 
     public void initMap(int index) {
@@ -147,8 +135,6 @@ public class Map {
     private void DrawBg() {
         g.drawImage(Util.bg, bg_x, bg_y, 0);
         g.drawImage(gameBg, gameBg_x, gameBg_y, 0);
-        g.drawImage(btnBack, btnBack_x, btnBack_y, 0);
-        g.drawImage(btnReset, btnReset_x, btnReset_y, 0);
     }
 
     private void setContainer() {
