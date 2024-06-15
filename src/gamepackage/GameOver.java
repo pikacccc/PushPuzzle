@@ -3,11 +3,10 @@ package gamepackage;
 import javax.microedition.lcdui.*;
 import javax.microedition.lcdui.game.GameCanvas;
 
-public class GameOver extends GameCanvas implements CommandListener, Runnable {
+public class GameOver extends GameCanvas implements Runnable {
     private boolean isRunning = false;
     private Graphics g;
     private int selectedOption = 0;
-    private Command selectCommand;
 
     public GameMidlet midlet;
 
@@ -31,9 +30,6 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
         setFullScreenMode(true);
         this.midlet = midlet;
         g = getGraphics();
-        selectCommand = new Command("", Command.OK, 0);
-        addCommand(selectCommand);
-        setCommandListener(this);
         LoadImages();
         InitCoordinates();
     }
@@ -54,11 +50,11 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
         bg_x = center_x - Util.bg.getWidth() / 2;
         bg_y = center_y - Util.bg.getHeight() / 2;
         gameOver_x = center_x - GameOver.getWidth() / 2;
-        gameOver_y = center_y - GameOver.getHeight() / 2 - 100;
+        gameOver_y = center_y - GameOver.getHeight() / 2 - 70;
         restart_x = center_x - Restart.getWidth() / 2;
-        restart_y = center_y - Restart.getHeight() / 2 + 135;
+        restart_y = center_y - Restart.getHeight() / 2 + 120;
         exit_x = center_x - Exit.getWidth() / 2;
-        exit_y = center_y - Exit.getHeight() / 2 + 210;
+        exit_y = center_y - Exit.getHeight() / 2 + 170;
     }
 
     public void start() {
@@ -68,39 +64,15 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
     }
 
     public void run() {
+        draw();
         while (isRunning) {
-            tick();
-            if (!isRunning) break;
-            draw();
-//            try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+//            tick();
+//            if (!isRunning) break;
+//            draw();
         }
     }
 
-    private int keyTrigger = 0;
-
     private void tick() {
-//        int keys = getKeyStates();
-//
-//        int inv = 0xffffffff - keyTrigger;
-//        int key = inv & keys;
-//        keyTrigger &= keys;
-//
-//        if ((key & DOWN_PRESSED) != 0) {
-//            selectedOption = (selectedOption + 1) % 2;
-//            keyTrigger |= DOWN_PRESSED;
-//        }
-//        if ((key & UP_PRESSED) != 0) {
-//            selectedOption = (selectedOption - 1 + 2) % 2;
-//            keyTrigger |= UP_PRESSED;
-//        }
-//        if ((key & FIRE_PRESSED) != 0) {
-//            executeSelectedOption();
-//            keyTrigger |= FIRE_PRESSED;
-//        }
     }
 
     public void stop() {
@@ -117,27 +89,28 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(restart_x - 70, restart_y - 15, 300, 56);
+        g.fillRect(restart_x - 32, restart_y - 8, 160, 32);
         g.drawImage(Restart, restart_x, restart_y, 0);
         if (selectedOption == 1) {
             g.setColor(0xFADF5F);
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(exit_x - 70, exit_y - 15, 300, 56);
+        g.fillRect(exit_x - 32, exit_y - 8, 160, 32);
         g.drawImage(Exit, exit_x, exit_y, 0);
         flushGraphics();
     }
 
     protected void keyPressed(int keyCode) {
         int gameAction = getGameAction(keyCode);
-        if (gameAction == UP || gameAction == LEFT) {
+        if (gameAction == UP) {
             selectedOption = (selectedOption - 1 + 2) % 2;
-        } else if (gameAction == DOWN || gameAction == RIGHT) {
+        } else if (gameAction == DOWN) {
             selectedOption = (selectedOption + 1) % 2;
         } else if (gameAction == FIRE) {
             executeSelectedOption();
         }
+        draw();
     }
 
     private void executeSelectedOption() {
@@ -147,11 +120,5 @@ public class GameOver extends GameCanvas implements CommandListener, Runnable {
         } else if (selectedOption == 1) {
             midlet.exitMIDlet();
         }
-    }
-
-    public void commandAction(Command command, Displayable displayable) {
-//        if (command == selectCommand) {
-//            executeSelectedOption();
-//        }
     }
 }
