@@ -16,7 +16,7 @@ import javax.microedition.lcdui.*;
 /**
  * @author bense
  */
-public class GameMidlet extends MIDlet {
+public class GameMidlet extends MIDlet implements IExit {
     public static final int MAXLEVEL = 41;
     private final Display display;
     public final GameMain canvas;
@@ -112,5 +112,9 @@ public class GameMidlet extends MIDlet {
 
     public void CloseGame() {
         canvas.Stop();
+    }
+
+    public void Exit() {
+        exitMIDlet();
     }
 }

@@ -15,7 +15,7 @@ import javax.microedition.lcdui.game.*;
 /**
  * @author bense
  */
-public class GameMain extends GameCanvas implements Runnable {
+public class GameMain extends GameCanvas implements Runnable, IRestartGame {
 
     private boolean runningFlag = true;
     private int index;
@@ -23,11 +23,15 @@ public class GameMain extends GameCanvas implements Runnable {
     private Graphics g;
     private GameMidlet midlet;
 
+    public boolean pause = false;
+    private PausePannel pp;
+
     public GameMain(GameMidlet midlet) {
         super(false);
         setFullScreenMode(true);
         this.midlet = midlet;
         g = getGraphics();
+        pp = new PausePannel(midlet, this, this.getWidth(), this.getHeight());
     }
 
     public void Stop() {
@@ -48,29 +52,32 @@ public class GameMain extends GameCanvas implements Runnable {
 
     public void keyPressed(int keyCode) {
         if (keyCode == -6 || keyCode == 8 || keyCode == 96 || keyCode == -8 || keyCode == -7) {
-            midlet.OpenMenu();
-            midlet.CloseGame();
+            pause = true;
             return;
         }
         int key = getGameAction(keyCode);
-        switch (key) {
-            case GameCanvas.DOWN:
-                map.getKey(3);
-                break;
-            case GameCanvas.UP:
-                map.getKey(1);
-                break;
-            case GameCanvas.LEFT:
-                map.getKey(2);
-                break;
-            case GameCanvas.RIGHT:
-                map.getKey(4);
-                break;
-            case GameCanvas.FIRE:
-                Reset();
-                break;
-            default:
-                break;
+        if (!pause) {
+            switch (key) {
+                case GameCanvas.DOWN:
+                    map.getKey(3);
+                    break;
+                case GameCanvas.UP:
+                    map.getKey(1);
+                    break;
+                case GameCanvas.LEFT:
+                    map.getKey(2);
+                    break;
+                case GameCanvas.RIGHT:
+                    map.getKey(4);
+                    break;
+                case GameCanvas.FIRE:
+                    Reset();
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            pp.keyPressed(key);
         }
     }
 
@@ -80,6 +87,7 @@ public class GameMain extends GameCanvas implements Runnable {
                 midlet.ShowWin(index);
             } else {
                 map.paint();
+                if (pause) pp.Draw(g);
             }
             flushGraphics();
             try {
@@ -92,5 +100,9 @@ public class GameMain extends GameCanvas implements Runnable {
 
     public void Reset() {
         InitData(index);
+    }
+
+    public void RestartGame() {
+        pause = false;
     }
 }
