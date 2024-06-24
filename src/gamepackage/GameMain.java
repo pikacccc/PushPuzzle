@@ -51,11 +51,14 @@ public class GameMain extends GameCanvas implements Runnable, IRestartGame {
     }
 
     public void keyPressed(int keyCode) {
-        if (keyCode == -6 || keyCode == 8 || keyCode == 96 || keyCode == -8 || keyCode == -7) {
-            pause = true;
-            return;
-        }
         int key = getGameAction(keyCode);
+        if (keyCode == 8 || keyCode == 96 || (keyCode <= -6 && keyCode >= -20)) {
+            if (key != FIRE && key != UP && key != LEFT && key != RIGHT && key != DOWN) {
+                pause = true;
+                return;
+            }
+        }
+        
         if (!pause) {
             switch (key) {
                 case GameCanvas.DOWN:
