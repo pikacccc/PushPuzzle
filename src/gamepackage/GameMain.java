@@ -52,13 +52,13 @@ public class GameMain extends GameCanvas implements Runnable, IRestartGame {
 
     public void keyPressed(int keyCode) {
         int key = getGameAction(keyCode);
-        if (keyCode == 8 || keyCode == 96 || (keyCode <= -6 && keyCode >= -20)) {
+        if (keyCode == 8 || keyCode == 96 || keyCode == -6 || keyCode == 48 || keyCode == -31 || keyCode == -8 || keyCode == -9 || keyCode == -5) {
             if (key != FIRE && key != UP && key != LEFT && key != RIGHT && key != DOWN) {
                 pause = true;
                 return;
             }
         }
-        
+
         if (!pause) {
             switch (key) {
                 case GameCanvas.DOWN:
@@ -84,6 +84,12 @@ public class GameMain extends GameCanvas implements Runnable, IRestartGame {
         }
     }
 
+    protected void hideNotify() {
+        super.hideNotify();
+        pause = true;
+        System.out.println("Out");
+    }
+
     public void run() {
         while (runningFlag) {
             if (map.isFinish()) {
@@ -91,6 +97,7 @@ public class GameMain extends GameCanvas implements Runnable, IRestartGame {
             } else {
                 map.paint();
                 if (pause) pp.Draw(g);
+                this.drawString(g, "0/·µ»Ø£º·µ»Ø²Ëµ¥", this.getWidth() - 140, this.getHeight() - 16, 4 | 16);
             }
             flushGraphics();
             try {
@@ -107,5 +114,20 @@ public class GameMain extends GameCanvas implements Runnable, IRestartGame {
 
     public void RestartGame() {
         pause = false;
+    }
+
+    private void drawString(Graphics g, String str, int x, int y, int anchor) {
+        g.setColor(0, 0, 0);
+        g.drawString(str, x - 2, y, anchor);
+        g.drawString(str, x + 2, y, anchor);
+        g.drawString(str, x, y - 2, anchor);
+        g.drawString(str, x, y + 2, anchor);
+        g.setColor(0, 0, 129);
+        g.drawString(str, x - 1, y, anchor);
+        g.drawString(str, x + 1, y, anchor);
+        g.drawString(str, x, y - 1, anchor);
+        g.drawString(str, x, y + 1, anchor);
+        g.setColor(199, 218, 243);
+        g.drawString(str, x, y, anchor);
     }
 }
