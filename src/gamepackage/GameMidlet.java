@@ -48,6 +48,7 @@ public class GameMidlet extends MIDlet implements IExit {
         SaveData();
         canvas.Stop();
         display.setCurrent(null);
+        notifyDestroyed();
     }
 
     public void OpenMenu() {
@@ -84,7 +85,6 @@ public class GameMidlet extends MIDlet implements IExit {
 
     public void exitMIDlet() {
         destroyApp(true);
-        notifyDestroyed();
     }
 
     public void RestoreData() {
