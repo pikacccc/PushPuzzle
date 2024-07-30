@@ -33,7 +33,7 @@ public class Menu extends GameCanvas implements Runnable {
 
     private boolean showContinue;
 
-    private String version="V1.2";
+    private String version="V1.4";
 
     public void SetContinue(boolean showContinue) {
         this.showContinue = showContinue;
