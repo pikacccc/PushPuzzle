@@ -33,7 +33,7 @@ public class Menu extends GameCanvas implements Runnable {
 
     private boolean showContinue;
 
-    private String version="V1.4";
+    private String version="V1.5";
 
     public void SetContinue(boolean showContinue) {
         this.showContinue = showContinue;
@@ -137,21 +137,21 @@ public class Menu extends GameCanvas implements Runnable {
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(continue_x - 32, continue_y - 8, 160, 32);
+        g.fillRect(continue_x - 32, continue_y - 8, 140, 32);
         g.drawImage(Continue, continue_x, continue_y, 0);
         if (selectedOption == 1) {
             g.setColor(0xFADF5F);
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(restart_x - 32, restart_y - 8, 160, 32);
+        g.fillRect(restart_x - 32, restart_y - 8, 140, 32);
         g.drawImage(Restart, restart_x, restart_y, 0);
         if (selectedOption == 2) {
             g.setColor(0xFADF5F);
         } else {
             g.setColor(0xFFFFCF);
         }
-        g.fillRect(exit_x - 32, exit_y - 8, 160, 32);
+        g.fillRect(exit_x - 32, exit_y - 8, 140, 32);
         g.drawImage(Exit, exit_x, exit_y, 0);
     }
 

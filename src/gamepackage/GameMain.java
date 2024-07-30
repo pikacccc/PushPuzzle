@@ -97,7 +97,6 @@ public class GameMain extends GameCanvas implements Runnable, IRestartGame {
             } else {
                 map.paint();
                 if (pause) pp.Draw(g);
-                this.drawString(g, "0/·µ»Ø£º·µ»Ø²Ëµ¥", this.getWidth() - 140, this.getHeight() - 16, 4 | 16);
             }
             flushGraphics();
             try {

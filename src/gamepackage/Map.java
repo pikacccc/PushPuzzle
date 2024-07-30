@@ -19,6 +19,7 @@ import javax.microedition.lcdui.game.*;
  */
 public class Map {
     private Image gameBg;
+    private Image backTip;
 
     private Sprite sp1 = new Sprite(ImageAction.getImage("/res/1.png"));
     private Sprite sp2 = new Sprite(ImageAction.getImage("/res/2.png"));
@@ -42,6 +43,8 @@ public class Map {
     private int gameBg_x;
     private int gameBg_y;
 
+    private int BackTip_x;
+    private int BackTip_y;
     /**
      * Creates a new instance of Map
      */
@@ -49,6 +52,7 @@ public class Map {
         this.game = game;
         this.g = g;
         gameBg = ImageAction.getImage("/res/backgroud2.png");
+        backTip = Util.LoadImg("/res/BackTip.png");
         initXY(game);
         initMap(index);
     }
@@ -62,6 +66,8 @@ public class Map {
         bg_y = center_y - Util.bg.getHeight() / 2;
         gameBg_x = center_x - gameBg.getWidth() / 2;
         gameBg_y = center_y - gameBg.getHeight() / 2;
+        BackTip_x = width - 140;
+        BackTip_y = height - 28;
     }
 
     public void initMap(int index) {
@@ -130,6 +136,11 @@ public class Map {
         setMap();
         setMan();
         setBox();
+        DrawBackTip();
+    }
+
+    private void DrawBackTip(){
+        g.drawImage(backTip, BackTip_x, BackTip_y, 0);
     }
 
     private void DrawBg() {
